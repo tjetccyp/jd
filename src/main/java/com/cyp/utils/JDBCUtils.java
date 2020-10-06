@@ -65,15 +65,17 @@ public class JDBCUtils {
         release(preparedStatement);
         release(connection);
     }
-    public void addDeleteUpdate(PreparedStatement preparedStatement,Object ...obj){
+    public int addDeleteUpdate(PreparedStatement preparedStatement,Object ...obj){
+        int a=0;
         try {
             for (int i = 0; i < obj.length; i++) {
                 preparedStatement.setObject((i+1),obj[i]);
             }
-                preparedStatement.executeUpdate();
+                a=preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return a;
     }
     public  ResultSet select(PreparedStatement preparedStatement,Object... object){
         ResultSet resultSet=null;
